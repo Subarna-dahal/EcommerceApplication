@@ -25,7 +25,7 @@ public class UserEntity {
     @NotBlank
     private String password;
     private String phone;
-
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
     private boolean isActive;

@@ -2,6 +2,8 @@ package com.example.EcommerceApplication.Services;
 
 import com.example.EcommerceApplication.Repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.example.EcommerceApplication.Entity.ProductEntity;
 
@@ -13,10 +15,12 @@ public class ProductServices {
     private ProductRepository productRepository;
 
     public ProductEntity saveEntry(ProductEntity productEntity) {
+
         return productRepository.save(productEntity);
     }
 
     public List<ProductEntity> getAll() {
+
         return productRepository.findAll();
     }
 
@@ -27,4 +31,11 @@ public class ProductServices {
         productRepository.deleteById(id);
      }
 
+     public Page<ProductEntity> getAll(Pageable pageable){
+        return productRepository.findAllItem(pageable);
+     }
+
+     public List<ProductEntity> filter(String category,double minPrice,double maxPrice){
+        return productRepository.findByCategoryNameAndPriceBetween(category, minPrice, maxPrice);
+     }
 }
