@@ -35,7 +35,7 @@ public class ProductServices {
         return productRepository.findAllItem(pageable);
      }
 
-     public List<ProductEntity> filter(String category,double minPrice,double maxPrice){
-        return productRepository.findByCategoryNameAndPriceBetween(category, minPrice, maxPrice);
+     public List<ProductEntity> filter(String category, double minPrice, double maxPrice, Pageable pageable){
+        return productRepository.findByCategoryNameAndPriceBetween(category, minPrice, maxPrice,pageable);
      }
 }

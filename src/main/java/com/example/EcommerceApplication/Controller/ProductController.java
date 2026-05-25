@@ -17,7 +17,7 @@ import java.nio.file.ProviderNotFoundException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/products")   // match roadmap
+@RequestMapping("/api/products")
 public class ProductController {
     @Autowired
     private ProductServices productService;
@@ -44,9 +44,12 @@ public class ProductController {
     public ResponseEntity<List<ProductEntity>> filterProduct(
             @RequestParam String category,
             @RequestParam double minPrice,
-            @RequestParam double maxPrice
+            @RequestParam double maxPrice,
+            @RequestParam (defaultValue = "0") int page,
+            @RequestParam (defaultValue = "10") int size
     ) {
-        List<ProductEntity> filterProduct = productService.filter(category, minPrice, maxPrice);
+        Pageable pageable=PageRequest.of(page,size);
+        List<ProductEntity> filterProduct = productService.filter(category, minPrice, maxPrice,pageable);
         return new ResponseEntity<>(filterProduct, HttpStatus.OK);
     }
 
